@@ -20,7 +20,7 @@ class SearchViewController: UIViewController {
         tableView.register(UINib(nibName: TableView.CellIdentifiers.searchResultCell, bundle: nil), forCellReuseIdentifier: TableView.CellIdentifiers.searchResultCell)
         
         tableView.register(UINib(nibName: TableView.CellIdentifiers.nothingFoundCell, bundle: nil), forCellReuseIdentifier: TableView.CellIdentifiers.nothingFoundCell)
-        
+        searchBar.becomeFirstResponder()
     }
 
 
@@ -44,9 +44,9 @@ extension SearchViewController : UISearchBarDelegate {
         tableView.reloadData()
     }
     
-    func position(for bar: UIBarPositioning) -> UIBarPosition {
-        return .topAttached
-    }
+//    func position(for bar: UIBarPositioning) -> UIBarPosition {
+//        return .topAttached
+//    }
     
     
 }
