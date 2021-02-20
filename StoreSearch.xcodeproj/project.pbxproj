@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9141BC9D25E12EFA00AAFA68 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9141BC9C25E12EFA00AAFA68 /* UIImageView+DownloadImage.swift */; };
 		914D3A8325D9D0E80018B0DB /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 914D3A8225D9D0E80018B0DB /* LoadingCell.xib */; };
 		919A430B25D170EB0074A4ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919A430A25D170EB0074A4ED /* AppDelegate.swift */; };
 		919A430D25D170EB0074A4ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919A430C25D170EB0074A4ED /* SceneDelegate.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9141BC9C25E12EFA00AAFA68 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 		914D3A8225D9D0E80018B0DB /* LoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		919A430725D170EB0074A4ED /* StoreSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		919A430A25D170EB0074A4ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				919A432625D1BFD80074A4ED /* SearchResultCell.swift */,
 				919A432925D1C7A60074A4ED /* NothingFoundCell.xib */,
 				914D3A8225D9D0E80018B0DB /* LoadingCell.xib */,
+				9141BC9C25E12EFA00AAFA68 /* UIImageView+DownloadImage.swift */,
 			);
 			path = StoreSearch;
 			sourceTree = "<group>";
@@ -157,6 +160,7 @@
 			files = (
 				919A430F25D170EB0074A4ED /* SearchViewController.swift in Sources */,
 				919A430B25D170EB0074A4ED /* AppDelegate.swift in Sources */,
+				9141BC9D25E12EFA00AAFA68 /* UIImageView+DownloadImage.swift in Sources */,
 				919A432125D19F6F0074A4ED /* SearchResult.swift in Sources */,
 				919A430D25D170EB0074A4ED /* SceneDelegate.swift in Sources */,
 				919A432725D1BFD80074A4ED /* SearchResultCell.swift in Sources */,

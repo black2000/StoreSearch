@@ -8,9 +8,11 @@
 import UIKit
 
 class SearchViewController: UIViewController {
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
    @IBOutlet weak var searchBar: UISearchBar!
    @IBOutlet weak var tableView: UITableView!
    var searchResults = [SearchResult]()
+    var dataTask : URLSessionDataTask?
     var hasSearched = false
     var isLoading = false
     override func viewDidLoad() {
@@ -26,10 +28,27 @@ class SearchViewController: UIViewController {
         
         searchBar.becomeFirstResponder()
     }
+    
+    
+    
+    @IBAction func egmentChanged(_ sender: UISegmentedControl) {
+        performSearch()
+    }
+    
+    
 
-    func iTunesURL(searchText:String) -> URL {
+    func iTunesURL(searchText:String,category:Int) -> URL {
+        let kind: String
+        switch category {
+            case 1: kind = "musicTrack"
+            case 2: kind = "software"
+            case 3: kind = "ebook"
+            default: kind = ""
+        }
+        
+        
         let encodedText = searchText.addingPercentEncoding(withAllowedCharacters: .urlUserAllowed)!
-        let urlString = String(format: "https://itunes.apple.com/searchlol?term=%@&limit=200", encodedText)
+        let urlString = String(format: "https://itunes.apple.com/search?term=%@&limit=200&entity=\(kind)", encodedText)
         let url = URL(string: urlString)
         return url!
     }
@@ -56,26 +75,23 @@ class SearchViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-}
-
-extension SearchViewController : UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+    func performSearch() {
         if !searchBar.text!.isEmpty {
             searchResults = []
             hasSearched = true
             searchBar.resignFirstResponder()
-            
+            dataTask?.cancel()
             isLoading = true
             tableView.reloadData()
-            let url = iTunesURL(searchText: searchBar.text!)
+            let url = iTunesURL(searchText: searchBar.text!, category: segmentedControl.selectedSegmentIndex)
             
             let session = URLSession.shared
             
-            let dataTask = session.dataTask(with: url) { (data, response, error) in
+            dataTask = session.dataTask(with: url) { (data, response, error) in
                 print("On main thread? " + (Thread.current.isMainThread ? "Yes" : "No"))
-                if let error = error {
-                    print(error.localizedDescription)
+                if let error = error as? NSError , error.code == -999 {
+                    print("error "+error.localizedDescription)
+                    return
                 }else if let httpResponse = response as? HTTPURLResponse ,
                          httpResponse.statusCode == 200 {
                     if let data = data {
@@ -101,12 +117,22 @@ extension SearchViewController : UISearchBarDelegate {
                 
                 
             }
-            dataTask.resume()
+            dataTask?.resume()
             
            
         }
         
         
+    }
+    
+    
+    
+    
+}
+
+extension SearchViewController : UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+       performSearch()
     }
     
     func position(for bar: UIBarPositioning) -> UIBarPosition {
@@ -146,15 +172,7 @@ extension SearchViewController : UITableViewDelegate , UITableViewDataSource {
         }else {
             let cell = tableView.dequeueReusableCell(withIdentifier: TableView.CellIdentifiers.searchResultCell, for: indexPath) as! SearchResultCell
             let searchResult = searchResults[indexPath.row]
-            cell.nameLabel.text = searchResult.name
-            
-            if  searchResult.artist.isEmpty {
-                cell.artistNameLabel.text = "unknown"
-            }else {
-                cell.artistNameLabel.text = String(format: "%@ (%@)",searchResult.artist, searchResult.type)
-            }
-            
-
+            cell.Configure(for: searchResult)
             return cell
         }
         
